@@ -10,21 +10,24 @@ app = Flask(__name__)
 def fetching_data():
     jwt = request.form.get('jwt')
     fc = FetchController()
-    return jsonify(fc.fetching_data(jwt=jwt))
+    data, status = fc.fetching_data(jwt=jwt)
+    return jsonify(data), status
 
 @app.route('/aggregate_data', methods=['GET','POST'])
 def aggregate_data():
     jwt = request.form.get('jwt')
     role = request.form.get('role')
     fc = FetchController()
-    return jsonify(fc.aggregate_data(jwt=jwt, role=role))
+    data, status = fc.aggregate_data(jwt=jwt, role=role)
+    return jsonify(data), status
 
 @app.route('/userdata', methods=['GET','POST'])
 def userdata():
     nik = request.form.get('nik')
     jwt = request.form.get('jwt')
     fc = FetchController()
-    return jsonify(fc.display_user(nik=nik, jwt=jwt))
+    data, status = fc.display_user(nik=nik, jwt=jwt)
+    return jsonify(data), status
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="custom port")

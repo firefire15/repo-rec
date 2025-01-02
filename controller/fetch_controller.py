@@ -25,9 +25,9 @@ class FetchController():
                     product['id'] = int(product['id'])
                     arr_product.append(product)
                     pd.save_product(product=product)
-                return arr_product
+                return arr_product, 200
             else:
-                return {'error': 'Invalid JWT Token'}
+                return {'error': 'Invalid JWT Token'}, 500
         except:
             raise
 
@@ -51,11 +51,12 @@ class FetchController():
                         dict_product['department'] = product[1]
                         dict_product['idr_price'] = product[2]
                         list_product.append(dict_product)
-                    return list_product
+                    data = {'jwt': jwt, 'role':role, 'data':list_product}
+                    return data, 200
                 else:
-                    return {'error': 'Invalid role, must be admin'}
+                    return {'error': 'Invalid role, must be admin'}, 500
             else:
-                return {'error': 'Invalid JWT Token'}
+                return {'error': 'Invalid JWT Token'}, 500
         except:
             raise
 
@@ -67,9 +68,9 @@ class FetchController():
                 user = ud.get_user_by_nik(nik=nik)
                 data = {'_id': user[0], 'NIK': user[1], 'role': user[2], 'password': user[3]}
                 all_data = {'jwt':t.get_token(), 'data':data}
-                return all_data
+                return all_data, 200
             else:
-                return {'error': 'Invalid JWT Token'}
+                return {'error': 'Invalid JWT Token'}, 500
         except:
             raise
 

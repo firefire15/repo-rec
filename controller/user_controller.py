@@ -13,7 +13,7 @@ class UserController():
             ud = UserDatabase()
             ud.save_user(nik=nik, role=role, password=password)
 
-            return user.to_dict(nik, role, password)
+            return user.to_dict(nik, role, password), 200
         except :
             raise
 
@@ -25,9 +25,9 @@ class UserController():
             if password == data['password']:
                 t = Token()
                 all_data = {'jwt':t.get_token(), 'data':data}
-                return all_data
+                return all_data, 200
             else:
-                return {'error':'login failed, wrong password or NIK'}
+                return {'error':'login failed, wrong password or NIK'}, 500
         except:
             raise
 
@@ -39,8 +39,8 @@ class UserController():
                 user = ud.get_user_by_nik(nik=nik)
                 data = {'_id': user[0], 'NIK': user[1], 'role': user[2], 'password': user[3]}
                 all_data = {'jwt':t.get_token(), 'data':data}
-                return all_data
+                return all_data, 200
             else:
-                return {'error': 'Invalid JWT Token'}
+                return {'error': 'Invalid JWT Token'}, 500
         except:
             raise

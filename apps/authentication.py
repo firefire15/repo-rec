@@ -16,7 +16,8 @@ def generate_user():
         return jsonify({'error': 'Invalid NIK, length of NIK must be 16'}),500
     else:
         user = UserController()
-        return jsonify(user.generate_user(nik=nik, role=role)),200
+        data, status = user.generate_user(nik=nik, role=role)
+        return jsonify(data), status
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -28,14 +29,16 @@ def login():
         return jsonify({'error': 'Invalid NIK, length of NIK must be 16'}),500
     else:
         user = UserController()
-        return jsonify(user.authenticate(nik, password)),200
+        data, status = user.authenticate(nik, password)
+        return jsonify(data), status
 
 @app.route('/userdata', methods=['GET','POST'])
 def userdata():
     nik = request.form.get('nik')
     jwt = request.form.get('jwt')
     user = UserController()
-    return jsonify(user.display_user(nik=nik, jwt=jwt))
+    data, status = user.display_user(nik=nik, jwt=jwt)
+    return jsonify(data), status
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="custom port")
