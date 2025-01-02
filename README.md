@@ -1,1 +1,1 @@
-program ini terdiri dari dua apps
+program ini terdiri dari beberapa modul yakni apps, controller, database, dan model
