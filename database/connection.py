@@ -6,10 +6,10 @@ class Connection():
     def connect_to_mysql(self):
         try:
             connection = mysql.connector.connect(
-                host='localhost',  # Replace with your MySQL host
-                user='root',  # Replace with your MySQL username
-                password='',  # Replace with your MySQL password
-                database='rec_jds'  # Replace with your database name
+                host='localhost',
+                user='root',
+                password='',
+                database='rec_jds'
             )
             if connection.is_connected():
                return connection
